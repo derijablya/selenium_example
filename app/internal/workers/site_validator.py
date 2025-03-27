@@ -9,7 +9,7 @@ from dependency_injector.wiring import Provide, inject
 from app.internal import services
 from app.internal.services import Services, cities, reports, sites, vectors
 from app.internal.services.reports import ReportsService
-from app.internal.workers import link_former
+from app.internal.workers import example1, example2, link_former
 from app.pkg import models, settings
 from app.pkg.logger import get_logger
 from app.pkg.settings import settings
@@ -57,7 +57,7 @@ class SiteValidator:
     async def serialize_dict_and_run_attempt_send_request(self, data_raw: dict):
         data: models.LinkFormerData = models.LinkFormerData(**data_raw)
         if data.site_url == "example1":
-            current_test = class_example1(
+            current_test = example1.Example1(
                 site_data=data,
                 reports_service=self.reports_service,
                 vectors_service=self.vectors_service,
@@ -66,7 +66,7 @@ class SiteValidator:
             )
             result_for_url: models.SeleniumOutReport = current_test.run_check()
         elif data.site_url == "example2":
-            current_test = class_example2(
+            current_test = example2.Example2(
                 site_data=data,
                 reports_service=self.reports_service,
                 vectors_service=self.vectors_service,
